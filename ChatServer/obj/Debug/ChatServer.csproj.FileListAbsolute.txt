@@ -1,0 +1,12 @@
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\bin\Debug\ChatServer.exe.config
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\bin\Debug\ChatServer.exe
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\bin\Debug\ChatServer.pdb
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\bin\Debug\MaterialSkin.dll
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.Form1.resources
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.Properties.Resources.resources
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.csproj.GenerateResource.cache
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.csproj.CoreCompileInputs.cache
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.csproj.CopyComplete
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.exe
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.pdb
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.csprojAssemblyReference.cache
