@@ -45,6 +45,11 @@
             this.numPort.Name = "numPort";
             this.numPort.Size = new System.Drawing.Size(123, 23);
             this.numPort.TabIndex = 2;
+            this.numPort.Value = new decimal(new int[] {
+            7777,
+            0,
+            0,
+            0});
             // 
             // tbIp
             // 
@@ -60,7 +65,7 @@
             this.tbIp.SelectionStart = 0;
             this.tbIp.Size = new System.Drawing.Size(123, 23);
             this.tbIp.TabIndex = 3;
-            this.tbIp.Text = "192.168.1.100";
+            this.tbIp.Text = "1.1.1.1";
             this.tbIp.UseSystemPasswordChar = false;
             // 
             // btStart
@@ -97,7 +102,7 @@
             this.Controls.Add(this.tbIp);
             this.Controls.Add(this.numPort);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Chat Server";
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
