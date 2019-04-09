@@ -1,5 +1,5 @@
 ﻿namespace ChatServer {
-    partial class Form1 {
+    partial class ServerForm {
         /// <summary>
         /// Wymagana zmienna projektanta.
         /// </summary>

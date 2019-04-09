@@ -15,20 +15,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ChatServer {
-    public partial class Form1 : MaterialForm {
+    public partial class ServerForm : MaterialForm {
 
         private bool isStarted = false;
 
         private TcpListener tcpListener;
         private TcpClient tcpClient;
-        //private List<Client> users = new List<Client>;
-        private List<string> usersName = new List<string> ();
+        private List<OneClient> users = new List<OneClient>();
+        private List<string> usersNames = new List<string> ();
 
         private string localIP = GetLocalIPAddress ();
 
         Thread waitForConneciton;
 
-        public Form1() {
+        public ServerForm() {
             InitializeComponent ();
 
             MaterialSkinManager materialManager = MaterialSkinManager.Instance;
@@ -43,7 +43,6 @@ namespace ChatServer {
         }
 
         private void btStart_Click(object sender, EventArgs e) {
-
 
             if (isStarted == false) {
                 RunServer ();
@@ -102,14 +101,17 @@ namespace ChatServer {
                         tcpClient = tcpListener.AcceptTcpClient ();
                         StreamReader streamReader = new StreamReader (tcpClient.GetStream ());
                         String nick = streamReader.ReadLine ();
-                        Console.WriteLine (nick);
-                        usersName.Add (nick);
+                        Console.WriteLine ("Connecting... "+nick);
+                        usersNames.Add (nick);
+                        users.Add (new OneClient (users, tcpClient, streamReader, nick));
+                        Console.WriteLine (users.Count); 
+                        Console.WriteLine ("Dodano usera do listy");
+                        usersNames.ForEach (i => Console.WriteLine ("{0} ", i));
                     }
                     catch(Exception ew) {
                         Console.WriteLine (ew);
+                        Console.WriteLine ("Nie dodano usera do listy");
                     }
-
-
 
                 }
             });
@@ -118,23 +120,39 @@ namespace ChatServer {
 
         }
 
-        public void SendToAllUsers(string message, String senderNick) {
-            
+        public void SendToAllUsers(List<OneClient> users, string message, String senderNick) {
+            Console.WriteLine (message);
+            Console.WriteLine (users.Count);
+            foreach (OneClient client in users) {
+                Console.WriteLine (client.nick);
+                Console.WriteLine ("userzy +++");
+                client.writer.WriteLine ("<i>"+senderNick+ "</i> " + message);
+                client.writer.Flush (); // clear buffers
+            }
+        }
+
+        public void RemoveUser(OneClient disconnectClient) {
+            Console.WriteLine ("Removing USER");
+            usersNames.Remove (disconnectClient.nick);
+            users.Remove (disconnectClient);
+            disconnectClient.messages.Abort ();
         }
     }
 
-    class OneClient {
-        private TcpClient connection;
-        private Thread messages;
-        private String nick;
-        private StreamReader reader;
-        private StreamWriter writer;
+    public class OneClient {
+        public TcpClient connection;
+        public Thread messages;
+        public String nick;
+        public StreamReader reader;
+        public StreamWriter writer;
 
-        public OneClient(ref TcpClient _connection, ref StreamReader reader, ref String nick) {
+        public OneClient(List<OneClient> _users, TcpClient _connection, StreamReader _reader, String _nick) {
             Console.WriteLine ("New Client");
-            this.connection = _connection;
-            this.reader = reader;
-            this.nick = nick;
+            connection = _connection;
+            reader = _reader;
+            nick = _nick;
+            List <OneClient> users = _users;
+            ServerForm serverForm = new ServerForm ();
 
             writer = new StreamWriter (connection.GetStream ());
 
@@ -142,9 +160,11 @@ namespace ChatServer {
                 while (true) {
                     try {
                         Console.WriteLine ("Send to ALL");
+                        serverForm.SendToAllUsers (users, reader.ReadLine (), nick);
                     }
                     catch {
                         Console.WriteLine ("REMOVE THIS USER");
+                        serverForm.RemoveUser (this);
                     }
                 }
             });
