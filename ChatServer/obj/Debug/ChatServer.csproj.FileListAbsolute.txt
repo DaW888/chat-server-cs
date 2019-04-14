@@ -9,3 +9,8 @@ D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.csproj.CopyCom
 D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.exe
 D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.pdb
 D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.ServerForm.resources
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.csprojAssemblyReference.cache
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\bin\Debug\ChatServer.exe.manifest
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\bin\Debug\ChatServer.application
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.exe.manifest
+D:\Projekty\ProjektyCS\ChatServer\ChatServer\obj\Debug\ChatServer.application

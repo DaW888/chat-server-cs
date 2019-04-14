@@ -27,6 +27,7 @@
             this.tbIp = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btStart = new MaterialSkin.Controls.MaterialRaisedButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbActiveUsers = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -92,16 +93,29 @@
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
-            // Form1
+            // lbActiveUsers
+            // 
+            this.lbActiveUsers.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbActiveUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.lbActiveUsers.ForeColor = System.Drawing.Color.White;
+            this.lbActiveUsers.FormattingEnabled = true;
+            this.lbActiveUsers.ItemHeight = 20;
+            this.lbActiveUsers.Location = new System.Drawing.Point(339, 90);
+            this.lbActiveUsers.Name = "lbActiveUsers";
+            this.lbActiveUsers.Size = new System.Drawing.Size(200, 304);
+            this.lbActiveUsers.TabIndex = 8;
+            // 
+            // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 450);
+            this.ClientSize = new System.Drawing.Size(600, 450);
+            this.Controls.Add(this.lbActiveUsers);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btStart);
             this.Controls.Add(this.tbIp);
             this.Controls.Add(this.numPort);
-            this.Name = "Form1";
+            this.Name = "ServerForm";
             this.Text = "Chat Server";
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -114,6 +128,7 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField tbIp;
         private MaterialSkin.Controls.MaterialRaisedButton btStart;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ListBox lbActiveUsers;
     }
 }
 

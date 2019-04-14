@@ -40,6 +40,7 @@ namespace ChatServer {
 
             tbIp.Text = localIP;
 
+
         }
 
         private void btStart_Click(object sender, EventArgs e) {
@@ -103,7 +104,11 @@ namespace ChatServer {
                         String nick = streamReader.ReadLine ();
                         Console.WriteLine ("Connecting... "+nick);
                         usersNames.Add (nick);
-                        users.Add (new OneClient (users, tcpClient, streamReader, nick));
+                        users.Add (new OneClient (users, tcpClient, streamReader, nick, this));
+
+                        lbActiveUsers.Invoke (new MethodInvoker (delegate { lbActiveUsers.Items.Add (nick); }));
+
+
                         Console.WriteLine (users.Count); 
                         Console.WriteLine ("Dodano usera do listy");
                         usersNames.ForEach (i => Console.WriteLine ("{0} ", i));
@@ -135,6 +140,13 @@ namespace ChatServer {
             Console.WriteLine ("Removing USER");
             usersNames.Remove (disconnectClient.nick);
             users.Remove (disconnectClient);
+
+            lbActiveUsers.Invoke (new MethodInvoker (delegate { lbActiveUsers.Items.Clear (); }));
+
+            foreach (String user in usersNames) {
+                lbActiveUsers.Invoke (new MethodInvoker (delegate { lbActiveUsers.Items.Add (user); }));
+            }
+
             disconnectClient.messages.Abort ();
         }
     }
@@ -146,13 +158,13 @@ namespace ChatServer {
         public StreamReader reader;
         public StreamWriter writer;
 
-        public OneClient(List<OneClient> _users, TcpClient _connection, StreamReader _reader, String _nick) {
+        public OneClient(List<OneClient> _users, TcpClient _connection, StreamReader _reader, String _nick, ServerForm _serverForm) {
             Console.WriteLine ("New Client");
             connection = _connection;
             reader = _reader;
             nick = _nick;
+            ServerForm serverForm = _serverForm;
             List <OneClient> users = _users;
-            ServerForm serverForm = new ServerForm ();
 
             writer = new StreamWriter (connection.GetStream ());
 
