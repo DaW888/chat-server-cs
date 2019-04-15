@@ -149,6 +149,14 @@ namespace ChatServer {
 
             disconnectClient.messages.Abort ();
         }
+
+        private void btStart_MouseEnter(object sender, EventArgs e) {
+            this.Cursor = Cursors.Hand;
+        }
+
+        private void btStart_MouseLeave(object sender, EventArgs e) {
+            this.Cursor = Cursors.Default;
+        }
     }
 
     public class OneClient {

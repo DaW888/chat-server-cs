@@ -37,7 +37,7 @@
             this.numPort.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.numPort.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.numPort.ForeColor = System.Drawing.Color.White;
-            this.numPort.Location = new System.Drawing.Point(135, 280);
+            this.numPort.Location = new System.Drawing.Point(80, 281);
             this.numPort.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -57,7 +57,7 @@
             this.tbIp.Depth = 0;
             this.tbIp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.32F);
             this.tbIp.Hint = "";
-            this.tbIp.Location = new System.Drawing.Point(135, 230);
+            this.tbIp.Location = new System.Drawing.Point(80, 231);
             this.tbIp.MouseState = MaterialSkin.MouseState.HOVER;
             this.tbIp.Name = "tbIp";
             this.tbIp.PasswordChar = '\0';
@@ -73,7 +73,7 @@
             // 
             this.btStart.BackColor = System.Drawing.SystemColors.Control;
             this.btStart.Depth = 0;
-            this.btStart.Location = new System.Drawing.Point(120, 340);
+            this.btStart.Location = new System.Drawing.Point(65, 341);
             this.btStart.MouseState = MaterialSkin.MouseState.HOVER;
             this.btStart.Name = "btStart";
             this.btStart.Primary = true;
@@ -82,11 +82,13 @@
             this.btStart.Text = "START SERVER";
             this.btStart.UseVisualStyleBackColor = false;
             this.btStart.Click += new System.EventHandler(this.btStart_Click);
+            this.btStart.MouseEnter += new System.EventHandler(this.btStart_MouseEnter);
+            this.btStart.MouseLeave += new System.EventHandler(this.btStart_MouseLeave);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::ChatServer.Properties.Resources.server_icon2;
-            this.pictureBox1.Location = new System.Drawing.Point(135, 90);
+            this.pictureBox1.Location = new System.Drawing.Point(80, 91);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(130, 100);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -96,20 +98,21 @@
             // lbActiveUsers
             // 
             this.lbActiveUsers.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lbActiveUsers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbActiveUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.lbActiveUsers.ForeColor = System.Drawing.Color.White;
             this.lbActiveUsers.FormattingEnabled = true;
             this.lbActiveUsers.ItemHeight = 20;
-            this.lbActiveUsers.Location = new System.Drawing.Point(339, 90);
+            this.lbActiveUsers.Location = new System.Drawing.Point(300, 91);
             this.lbActiveUsers.Name = "lbActiveUsers";
-            this.lbActiveUsers.Size = new System.Drawing.Size(200, 304);
+            this.lbActiveUsers.Size = new System.Drawing.Size(250, 302);
             this.lbActiveUsers.TabIndex = 8;
             // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 450);
+            this.ClientSize = new System.Drawing.Size(630, 450);
             this.Controls.Add(this.lbActiveUsers);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btStart);
