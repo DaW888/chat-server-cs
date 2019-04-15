@@ -107,6 +107,7 @@
             this.lbActiveUsers.Name = "lbActiveUsers";
             this.lbActiveUsers.Size = new System.Drawing.Size(250, 302);
             this.lbActiveUsers.TabIndex = 8;
+            this.lbActiveUsers.DoubleClick += new System.EventHandler(this.lbActiveUsers_DoubleClick);
             // 
             // ServerForm
             // 

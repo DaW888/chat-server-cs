@@ -126,14 +126,38 @@ namespace ChatServer {
         }
 
         public void SendToAllUsers(List<OneClient> users, string message, String senderNick) {
+
+            String currentTime = DateTime.Now.ToString ("HH:mm:ss");
+
             Console.WriteLine (message);
             Console.WriteLine (users.Count);
-            foreach (OneClient client in users) {
-                Console.WriteLine (client.nick);
-                Console.WriteLine ("userzy +++");
-                client.writer.WriteLine ("<i>"+senderNick+ "</i> " + message);
-                client.writer.Flush (); // clear buffers
+
+            if (message.StartsWith ("//p")) {
+                String[] words = message.Split (' ');
+                OneClient dstUser = users.SingleOrDefault (dst => dst.nick == words[1]);
+                if(dstUser == null) {
+                    Console.WriteLine ("USER NOT EXIST");
+                    dstUser = users.SingleOrDefault (dst => dst.nick == senderNick);
+                    dstUser.writer.WriteLine ("this user NOT EXIST");
+                    dstUser.writer.Flush ();
+
+                } else {
+                    dstUser.writer.WriteLine (currentTime + "|PRIV " + senderNick + "|" + message);
+                    dstUser.writer.Flush ();
+
+                }
+            } else {
+                foreach (OneClient client in users) {
+                    Console.WriteLine (client.nick);
+                    Console.WriteLine ("userzy +++");
+
+
+                    client.writer.WriteLine (currentTime + "|" + senderNick + "|" + message);
+                    client.writer.Flush (); // clear buffers
+                }
             }
+
+
         }
 
         public void RemoveUser(OneClient disconnectClient) {
@@ -156,6 +180,21 @@ namespace ChatServer {
 
         private void btStart_MouseLeave(object sender, EventArgs e) {
             this.Cursor = Cursors.Default;
+        }
+
+
+        private void lbActiveUsers_DoubleClick(object sender, EventArgs e) {
+            String currentNick = lbActiveUsers.SelectedItem.ToString ();
+
+            foreach (OneClient user in users) {
+                if(user.nick == currentNick) {
+                    ChatForm chatForm = new ChatForm (user);
+                    chatForm.Text = currentNick;
+                    chatForm.Show ();
+                }
+
+            }
+
         }
     }
 
