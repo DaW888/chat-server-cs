@@ -31,10 +31,11 @@ namespace ChatServer {
 
         private void btSend_Click(object sender, EventArgs e) {
             String message = itMessage.Text.ToString().Trim();
+            String currentTime = DateTime.Now.ToString ("HH:mm:ss");
 
-            if(message != "") {
 
-                String formatedMessage = "<b>" + "GOD" + "</b> " + message + "<br>";
+            if (message != "") {
+                String formatedMessage = currentTime + "|" + "GOD" + "|" + message;
 
                 try {
                     user.writer.WriteLine (formatedMessage);

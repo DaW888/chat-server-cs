@@ -138,7 +138,7 @@ namespace ChatServer {
                 if(dstUser == null) {
                     Console.WriteLine ("USER NOT EXIST");
                     dstUser = users.SingleOrDefault (dst => dst.nick == senderNick);
-                    dstUser.writer.WriteLine ("this user NOT EXIST");
+                    dstUser.writer.WriteLine ("||this user NOT EXIST");
                     dstUser.writer.Flush ();
 
                 } else {
@@ -146,11 +146,17 @@ namespace ChatServer {
                     dstUser.writer.Flush ();
 
                 }
-            } else {
+            } else if (message.StartsWith ("//users")) {
+                String sUsers = string.Join (" ", usersNames);
+                OneClient dstUser = users.SingleOrDefault (dst => dst.nick == senderNick);
+                dstUser.writer.WriteLine ("||Users Now Online: "+ "<b>" +sUsers + "</b>");
+                dstUser.writer.Flush ();
+
+            }
+            else {
                 foreach (OneClient client in users) {
                     Console.WriteLine (client.nick);
                     Console.WriteLine ("userzy +++");
-
 
                     client.writer.WriteLine (currentTime + "|" + senderNick + "|" + message);
                     client.writer.Flush (); // clear buffers
