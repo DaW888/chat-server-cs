@@ -23,6 +23,7 @@
         /// jej zawartości w edytorze kodu.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerForm));
             this.numPort = new System.Windows.Forms.NumericUpDown();
             this.tbIp = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btStart = new MaterialSkin.Controls.MaterialRaisedButton();
@@ -119,6 +120,7 @@
             this.Controls.Add(this.btStart);
             this.Controls.Add(this.tbIp);
             this.Controls.Add(this.numPort);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ServerForm";
             this.Text = "Chat Server";
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();

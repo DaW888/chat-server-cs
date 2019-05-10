@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
             this.wbMessages = new System.Windows.Forms.WebBrowser();
             this.btSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.itMessage = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -64,6 +65,7 @@
             this.itMessage.Size = new System.Drawing.Size(536, 23);
             this.itMessage.TabIndex = 2;
             this.itMessage.UseSystemPasswordChar = false;
+            this.itMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.itMessage_KeyDown);
             // 
             // ChatForm
             // 
@@ -73,6 +75,7 @@
             this.Controls.Add(this.itMessage);
             this.Controls.Add(this.btSend);
             this.Controls.Add(this.wbMessages);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChatForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ChatForm";

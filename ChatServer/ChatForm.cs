@@ -19,6 +19,71 @@ namespace ChatServer {
 
             InitializeComponent ();
 
+            String styleOfwb = @"<style>body {
+                margin: 0;
+                padding: 0;
+                display: block;
+                position: relative;
+                background-color: #353535;
+                overflow: hiden;
+            }
+            document{
+                overflow: hiden;
+            }
+            .me {
+                width: 30%;
+                float: right;
+                width: 60%;
+                background-color: #252525;
+                color: white;
+            }
+            .you {
+                background-color: #e53935;
+                width: 30%;
+                float: left;
+                width: 60%;
+            }
+
+            .message {
+                margin: 0;
+                word-wrap: break-word;
+                width: 68%; 
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                    Geneva, Verdana, sans-serif;
+                font-size: 2.8vw;
+                float: left;
+                margin-left: 2%;
+            }
+            .nick {
+                margin: 0;
+                margin-left: 2%;
+                box-sizing: border-box;
+                word-wrap: break-word;
+                width: 30%;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode',
+                    Geneva, Verdana, sans-serif;
+                font-size: 2.8vw;
+                float: left;
+                font-weight: bold;
+            }
+            .me, .you {
+                box-sizing: border-box;
+                margin: 1% 0;
+                border: 0px solid;
+                border-radius: 22px;
+                padding: 8px;
+            }
+            .time {
+                font-size: 1.5vw;
+                font-family: monospace;
+                width: 100%;
+                text-align: center;
+                font-weight: bold;
+            }            img{                width: 35px;                height: 35px;            }        </style>";
+            wbMessages.DocumentText = styleOfwb;
+
+
+
             MaterialSkinManager materialManager = MaterialSkinManager.Instance;
             materialManager.AddFormToManage (this);
             materialManager.Theme = MaterialSkinManager.Themes.DARK;
@@ -30,7 +95,7 @@ namespace ChatServer {
 
 
         private void btSend_Click(object sender, EventArgs e) {
-            String message = itMessage.Text.ToString().Trim();
+            String message = itMessage.Text.ToString ().Trim ();
             String currentTime = DateTime.Now.ToString ("HH:mm:ss");
 
 
@@ -41,6 +106,7 @@ namespace ChatServer {
                     user.writer.WriteLine (formatedMessage);
                     user.writer.Flush (); // clear buffers
                     wbMessages.DocumentText += formatedMessage;
+                    wbMessages.DocumentText += "<div class='me'><p class='time'>" + currentTime + "</p><p class='nick'>" + "ME" + "</p><p class='message'>" + message + "</p></div>";
                     itMessage.Clear ();
 
                 }
@@ -51,6 +117,12 @@ namespace ChatServer {
             }
 
 
+        }
+
+        private void itMessage_KeyDown(object sender, KeyEventArgs e) {
+            if (e.KeyValue == 13) { //enter
+                btSend_Click (null, null);
+            }
         }
     }
 }

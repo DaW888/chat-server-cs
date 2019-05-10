@@ -190,16 +190,23 @@ namespace ChatServer {
 
 
         private void lbActiveUsers_DoubleClick(object sender, EventArgs e) {
-            String currentNick = lbActiveUsers.SelectedItem.ToString ();
+            try {
+                String currentNick = lbActiveUsers.SelectedItem.ToString ();
 
-            foreach (OneClient user in users) {
-                if(user.nick == currentNick) {
-                    ChatForm chatForm = new ChatForm (user);
-                    chatForm.Text = currentNick;
-                    chatForm.Show ();
+                foreach (OneClient user in users) {
+                    if (user.nick == currentNick) {
+                        ChatForm chatForm = new ChatForm (user);
+                        chatForm.Text = currentNick;
+                        chatForm.Show ();
+                    }
+
                 }
 
+            } catch {
+                Console.WriteLine ("err");
             }
+
+            
 
         }
     }
