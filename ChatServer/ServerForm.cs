@@ -234,7 +234,8 @@ namespace ChatServer {
             Console.WriteLine (currentNick);
             OneClient client = users.Find (user => user.nick == currentNick);
             client.room = tbRoomName.Text.ToString();
-            client.writer.WriteLine ("room|"+tbRoomName.ToString()+"|"); //! TUTAJ
+            Console.WriteLine("room|" + tbRoomName.Text + "|");
+            client.writer.WriteLine ("room|"+tbRoomName.Text.ToString()+"|"); //! TUTAJ
             client.writer.Flush ();
         }
 
