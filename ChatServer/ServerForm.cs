@@ -101,10 +101,15 @@ namespace ChatServer {
                     try {
                         tcpClient = tcpListener.AcceptTcpClient ();
                         StreamReader streamReader = new StreamReader (tcpClient.GetStream ());
-                        String nick = streamReader.ReadLine ();
+
+                        String nickAndRoom = streamReader.ReadLine ();
+                        string[] data = nickAndRoom.Split (new Char[] { '|' });
+                        String nick = data[0];
+                        String room = data[1];
+
                         Console.WriteLine ("Connecting... "+nick);
                         usersNames.Add (nick);
-                        users.Add (new OneClient (users, tcpClient, streamReader, nick, this));
+                        users.Add (new OneClient (users, tcpClient, streamReader, nick, room, this));
 
                         lbActiveUsers.Invoke (new MethodInvoker (delegate { lbActiveUsers.Items.Add (nick); }));
 
@@ -154,12 +159,16 @@ namespace ChatServer {
 
             }
             else {
-                foreach (OneClient client in users) {
-                    Console.WriteLine (client.nick);
-                    Console.WriteLine ("userzy +++");
+                OneClient sender = users.Find (user => user.nick == senderNick);
 
-                    client.writer.WriteLine (currentTime + "|" + senderNick + "|" + message);
-                    client.writer.Flush (); // clear buffers
+                foreach (OneClient client in users) {
+                    if(sender.room == client.room) {
+                        Console.WriteLine (client.nick);
+                        Console.WriteLine ("userzy +++");
+
+                        client.writer.WriteLine (currentTime + "|" + senderNick + "|" + message);
+                        client.writer.Flush (); // clear buffers
+                    } 
                 }
             }
 
@@ -209,20 +218,54 @@ namespace ChatServer {
             
 
         }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e) {
+            String currentNick = lbActiveUsers.SelectedItem.ToString ();
+            Console.WriteLine (currentNick);
+            OneClient client = users.Find (user => user.nick == currentNick);
+
+            client.writer.WriteLine ("disconnect||"); //! TUTAJ
+            client.writer.Flush ();
+            RemoveUser (client);
+        }
+
+        private void changeRoomToolStripMenuItem_Click(object sender, EventArgs e) {
+            String currentNick = lbActiveUsers.SelectedItem.ToString ();
+            Console.WriteLine (currentNick);
+            OneClient client = users.Find (user => user.nick == currentNick);
+            client.room = tbRoomName.Text.ToString();
+            client.writer.WriteLine ("room|"+tbRoomName.ToString()+"|"); //! TUTAJ
+            client.writer.Flush ();
+        }
+
+        private void lbActiveUsers_Click(object sender, EventArgs e) {
+            try {
+                String currentNick = lbActiveUsers.SelectedItem.ToString ();
+                Console.WriteLine (currentNick);
+                OneClient client = users.Find (user => user.nick == currentNick);
+                String room = client.room;
+                tbRoomName.Text = room;
+            }catch {
+                Console.WriteLine ("USER DISCONECTED");
+            }
+            
+        }
     }
 
     public class OneClient {
         public TcpClient connection;
         public Thread messages;
         public String nick;
+        public String room;
         public StreamReader reader;
         public StreamWriter writer;
 
-        public OneClient(List<OneClient> _users, TcpClient _connection, StreamReader _reader, String _nick, ServerForm _serverForm) {
+        public OneClient(List<OneClient> _users, TcpClient _connection, StreamReader _reader, String _nick, String _room, ServerForm _serverForm) {
             Console.WriteLine ("New Client");
             connection = _connection;
             reader = _reader;
             nick = _nick;
+            room = _room;
             ServerForm serverForm = _serverForm;
             List <OneClient> users = _users;
 
